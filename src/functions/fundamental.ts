@@ -51,3 +51,74 @@ const sum = (base: number, ...args: number[]): number => {
 console.log(sum(1, 10, 100)); // 1110
 console.log(sum(123, 456)); // 123456
 // console.log(sum()); // 引数が合わないためエラー
+
+// スプレッド構文(...配列名)
+const sum2 = (...args: number[]): number => {
+  let result = 0;
+  for (const num of args) {
+    result += num;
+  }
+  return result;
+};
+const nums = [1, 2, 3, 4, 5];
+// 関数呼び出し時、引数に(...配列名)と与える
+// 可変長引数に渡す必要がある(tupleを使えば出来るが、あまり使われない)
+console.log(sum2(...nums));
+
+// オプショナル引数の宣言(初期値の指定なしの場合、引数名?:型 で定義)
+const toLowerOrUpper = (str: string, upper?: boolean) => {
+  if (upper) {
+    return str.toUpperCase();
+  } else {
+    return str.toLowerCase();
+  }
+};
+console.log(toLowerOrUpper("Hello")); // hello
+console.log(toLowerOrUpper("Hello", undefined)); // hello 第二引数はboolean | undefined のUNION型
+console.log(toLowerOrUpper("Hello", false)); // hello
+console.log(toLowerOrUpper("Hello", true)); // HELLO
+
+// オプショナル引数の宣言(初期値の指定ありの場合、引数名:型=式 で定義)
+const toLowerOrUpperSecondary = (str: string, upper: boolean = false) => {
+  if (upper) {
+    return str.toUpperCase();
+  } else {
+    return str.toLowerCase();
+  }
+};
+console.log(toLowerOrUpperSecondary("Hello")); // hello
+console.log(toLowerOrUpperSecondary("Hello", undefined)); // hello 第二引数にundefinedを渡すとfalse判定
+console.log(toLowerOrUpperSecondary("Hello", false)); // hello
+console.log(toLowerOrUpperSecondary("Hello", true)); // HELLO
+
+// コールバック関数の利用
+// e.g. 配列
+type CallBackUser = {
+  name: string;
+  age: number;
+};
+const callusers: CallBackUser[] = [
+  { name: "yamada", age: 20 },
+  { name: "sato", age: 15 },
+];
+// mapを利用して新しい配列を作成する
+// mapの引数にコールバック関数を与える
+// callusers:CallBackUser型から新しくu:CallBackUser型を生成し、name要素をreturnしている
+const names = callusers.map((u: CallBackUser): string => u.name);
+console.log(names); // ["yamada", "sato"]
+
+// === 配列のその他メソッド === //
+// filter:式の結果がtrueの要素だけreturnする
+const adultUsers = callusers.filter((u: CallBackUser): boolean => u.age >= 20);
+console.log(adultUsers); // [{name:"yamada", age:20}]
+// every:配列のすべての要素に対して式の結果を評価し、true/falseを返却
+const allAdult = callusers.every((u: CallBackUser): boolean => u.age >= 20);
+console.log(allAdult); // false
+// some:配列のすべての要素に対して式の結果を評価し、一つでもtrueならばtrue
+const seniorExists = callusers.some((u: CallBackUser): boolean => u.age >= 60);
+console.log(seniorExists); // false
+// find:配列の要素から式の結果に一致する要素を返却
+const sato = callusers.find((u: CallBackUser): boolean =>
+  u.name.startsWith("sato")
+);
+console.log(sato); // {name:"sato", age:15}
