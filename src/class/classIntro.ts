@@ -94,6 +94,8 @@ console.log(admin.isAdult()); // true
 class UserClassHasAccessbility {
   name: string;
   // privateは#でも表現することが可能
+  // #の場合はランタイムのチェックを実施する
+  // privateはコンパイラのチェックのみ
   private age: number;
   #sex: string;
 
