@@ -15,6 +15,7 @@ try {
 console.log("5.try-catch-finally後の処理"); // 五番目
 
 function throwFunction() {
+  // throwは何でも投げられる
   throw new Error("3.エラーが発生しました");
 }
 
