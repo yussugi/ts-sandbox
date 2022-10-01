@@ -54,6 +54,7 @@ console.log(formatNumberOrString("yamada")); // "yamada"
 /**
  * 代数的データ型(algebraic data type)をユニオン型で再現するケース
  * 型にtagプロパティを与える
+ * 別名：タグ付きユニオン、直和型
  */
 type AnimalAlgebraic = {
   tag: "animal";
