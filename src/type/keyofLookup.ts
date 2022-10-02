@@ -92,3 +92,11 @@ const yamadaTKName = getTK(yamadaTK, "name");
 const yamadaTKAge = getTK(yamadaTK, "age");
 console.log(yamadaTKName); // yamadaTK
 console.log(yamadaTKAge); // 30
+
+/**
+ * as const / lookup / typepf を利用した値=>型作成
+ */
+const nameToType = ["yamada", "tanaka", "sato"] as const;
+// 以下は `type NameFromValue = "yamada" | "tanaka" | "sato"`
+// [number]でlookup("yamada" | "tanaka" | "sato")を取得
+type NameFromValue = typeof nameToType[number];
